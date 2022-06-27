@@ -1,0 +1,6 @@
+// These data come from  Hosmer and Lemeshow (2000) Applied Logistic
+// Regression: Second Edition.  These data are copyrighted by John Wiley &
+// Sons Inc. and must be acknowledged and used accordingly.
+
+//  STR  OBS  AGMT  FNDX  HIGD  DEG  CHK  AGP1  AGMN  NLV  LIV   WT  AGLP  MST
+Ejemplo: https://www.bmc.com/blogs/using-logistic-regression-scala-spark/
