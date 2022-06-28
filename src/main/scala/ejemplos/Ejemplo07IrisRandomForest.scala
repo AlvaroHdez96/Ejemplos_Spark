@@ -25,12 +25,14 @@ object Ejemplo07IrisRandomForest {
       .appName("CargaJSON")
       .config("log4j.rootCategory", "ERROR, console")
       .getOrCreate()
+    //Definimos el dataframe diciendole que infiera qué tipo de dato es cada columnna
     var df = spark.read.format("csv")
       .option("header", "true")
       .option("delimiter", ",")
       .option("inferSchema", "true")
       .load("resources/iris-multiclass.csv")
 
+    //También podemos darle el tipo explícitamente
     import spark.implicits._
     /*
     df = df.withColumnRenamed("_c0", "sepalLength")
@@ -51,12 +53,12 @@ object Ejemplo07IrisRandomForest {
     val featureSet = assembler.transform(df)
 
     // split data random in trainingset (70%) and testset (30%)
-    val seed = 5043
+    val seed = 42
     val trainingAndTestSet = featureSet.randomSplit(Array[Double](0.7, 0.3), seed)
     val trainingSet = trainingAndTestSet(0)
     val testSet = trainingAndTestSet(1)
 
-    // train the algorithm based on a Random Forest Classification Algorithm with default values// train the algorithm based on a Random Forest Classification Algorithm with default values
+    // train the algorithm based on a Random Forest Classification Algorithm with default values
 
     val randomForestClassifier = new RandomForestClassifier().setSeed(seed)
     //randomForestClassifier.setMaxDepth(4)
@@ -67,10 +69,12 @@ object Ejemplo07IrisRandomForest {
     // evaluate the model
     val evaluator = new MulticlassClassificationEvaluator()
 
+
+    // Imprimimos la probabilidad de acierto
     System.out.println("accuracy: " + evaluator.evaluate(predictions))
     /*
     val dataMapped=data.map( _.toDouble )
-    //Dividiendo datos en training y test
+    // Dividiendo datos en training y test
     val Array(training, test) = data.randomSplit(Array[Double](0.7, 0.3), 18)
     training.show()
     */
