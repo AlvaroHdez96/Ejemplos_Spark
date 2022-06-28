@@ -28,15 +28,10 @@ object Classification {
 
     // identify the feature colunms
 
-    //df.printSchema()
-    if (df["koi_disposition"] == "CONFIRMED") {
-      df["koi_disposition"] = 1
-    }else {
-      df["koi_disposition"] = 0
-    }
+    df.show()
 
     val inputColumns = Array("koi_duration","koi_depth","koi_model_snr")
-    val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("koi_disposition")
+    val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("features")
 
     val featureSet = assembler.transform(df)
 
