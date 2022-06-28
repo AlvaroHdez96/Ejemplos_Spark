@@ -25,21 +25,18 @@ object Classification {
       .option("delimiter", ",")
       .option("inferSchema", "true")
       .load("resources/exoplanets.csv")
-    /*
-    df = df.withColumnRenamed("_c0", "sepalLength")
-    df = df.withColumnRenamed("_c1", "sepalWidth")
-    df = df.withColumnRenamed("_c2", "petalLength")
-    df = df.withColumnRenamed("_c3", "petalWidth")
-    df = df.withColumnRenamed("_c4", "labels")
 
     // identify the feature colunms
 
-    */
-    df.printSchema()
+    //df.printSchema()
+    if (df["koi_disposition"] == "CONFIRMED") {
+      df["koi_disposition"] = 1
+    }else {
+      df["koi_disposition"] = 0
+    }
 
-
-    val inputColumns = Array("koi_period", "koi_period", "koi_impact", "koi_duration")
-    val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("features")
+    val inputColumns = Array("koi_duration","koi_depth","koi_model_snr")
+    val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("koi_disposition")
 
     val featureSet = assembler.transform(df)
 
@@ -49,7 +46,7 @@ object Classification {
     val trainingSet = trainingAndTestSet(0)
     val testSet = trainingAndTestSet(1)
 
-    // train the algorithm based on a Random Forest Classification Algorithm with default values// train the algorithm based on a Random Forest Classification Algorithm with default values
+    // train the algorithm based on a Random Forest Classification Algorithm with default values
 
     val randomForestClassifier = new RandomForestClassifier().setSeed(seed)
     //randomForestClassifier.setMaxDepth(4)
