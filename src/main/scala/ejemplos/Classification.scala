@@ -31,7 +31,7 @@ object Classification {
     df.show()
 
     val inputColumns = Array("koi_duration","koi_depth","koi_model_snr")
-    val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("features")
+    val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("koi_disposition")
 
     val featureSet = assembler.transform(df)
 
