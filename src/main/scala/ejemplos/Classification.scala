@@ -13,7 +13,7 @@ object Classification {
     //Reducir el número de LOG
     Logger.getLogger("org").setLevel(Level.OFF)
     //Creando el contexto del Servidor
-    val sc = new SparkContext("local","Ejemplo06Iris", System.getenv("SPARK_HOME"))
+    val sc = new SparkContext("local","Exoplanets", System.getenv("SPARK_HOME"))
     val spark = SparkSession
       .builder()
       .master("local")
@@ -24,7 +24,7 @@ object Classification {
       .option("header", "true")
       .option("delimiter", ",")
       .option("inferSchema", "true")
-      .load("resources/iris-multiclass.csv")
+      .load("resources/exoplanets.csv")
     /*
     df = df.withColumnRenamed("_c0", "sepalLength")
     df = df.withColumnRenamed("_c1", "sepalWidth")
@@ -38,13 +38,13 @@ object Classification {
     df.printSchema()
 
 
-    val inputColumns = Array("SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm")
+    val inputColumns = Array("koi_period", "koi_period", "koi_impact", "koi_duration")
     val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("features")
 
     val featureSet = assembler.transform(df)
 
     // split data random in trainingset (70%) and testset (30%)
-    val seed = 5043
+    val seed = 42
     val trainingAndTestSet = featureSet.randomSplit(Array[Double](0.7, 0.3), seed)
     val trainingSet = trainingAndTestSet(0)
     val testSet = trainingAndTestSet(1)
