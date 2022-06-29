@@ -30,26 +30,13 @@ object Classification {
       .option("inferSchema", "true")
       .load("resources/exoplanets.csv")
 
-    // identify the feature colunms
-    //val df1 = df.map("_,_","_._")
-    //val df2 = df1.na.drop("koi_disposition")
-    val df1 = df.withColumn("y",col("koi_disposition").cast("int"))
+    val df1 = df.withColumn("label",col("koi_disposition").cast("int"))
 
     val df2 = df1.withColumn("x1",col("koi_duration").cast("float")).withColumn("x2",col("koi_depth").cast("float")).withColumn("x3",col("koi_model_snr").cast("float"))
 
     val df3 = df2.drop("loc_rowid","koi_disposition","koi_duration","koi_depth","koi_model_snr").na.drop("any")
     df3.show()
-    /*
-    val df3 = df2.na.drop("any").drop("koi_disposition","koi_depth","koi_duration","koi_model_snr")
-    df3.show()
 
-    val df3 = df2.withColumn("koi_model_snr",col("koi_model_snr").cast("float"))
-    println("DF3")
-    df3.show()
-    val df4 = df3.withColumn("koi_depth",col("koi_depth").cast("float"))
-    println("DF4")
-    df4.show()
-    */
     val inputColumns = Array("x1","x2","x3")
     val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("features")
 
