@@ -2,10 +2,14 @@ package ejemplos
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
 import org.apache.spark.ml.classification.RandomForestClassifier
 import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
+import com.google.common.collect.ImmutableMap
+
 
 object Classification {
 
@@ -23,17 +27,32 @@ object Classification {
     var df = spark.read.format("csv")
       .option("header", "true")
       .option("delimiter", ",")
-      .option("inferSchema", "true")
+      .option("inferSchema", "false")
       .load("resources/exoplanets.csv")
 
     // identify the feature colunms
-
     df.show()
+    val df1 = df.map(
+      "_,_" -> "_._"
+    )
+    /*
+    val df1 = df.withColumn("koi_disposition",col("koi_disposition").cast("Integer"))
+    df1.show()
+    val df2 = df1.withColumn("koi_duration",col("koi_duration").cast("Float"))
+    df2.show()
+    val df3 = df2.withColumn("koi_model_snr",col("koi_model_snr").cast("Float"))
+    df3.show()
+    val df4 = df3.withColumn("koi_depth",col("koi_depth").cast("Float"))
+    df4.show()
 
+    val df1 = df.na.drop(Seq("koi_disposition")).show(false)
+    df1.show()
+
+    */
     val inputColumns = Array("koi_duration","koi_depth","koi_model_snr")
     val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("koi_disposition")
 
-    val featureSet = assembler.transform(df)
+    val featureSet = assembler.transform(df1)
 
     // split data random in trainingset (70%) and testset (30%)
     val seed = 42
