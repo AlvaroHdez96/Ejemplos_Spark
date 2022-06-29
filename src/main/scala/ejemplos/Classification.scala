@@ -27,32 +27,33 @@ object Classification {
     var df = spark.read.format("csv")
       .option("header", "true")
       .option("delimiter", ",")
-      .option("inferSchema", "false")
+      .option("inferSchema", "true")
       .load("resources/exoplanets.csv")
 
     // identify the feature colunms
-    df.show()
-    val df1 = df.map(
-      "_,_" -> "_._"
-    )
-    /*
-    val df1 = df.withColumn("koi_disposition",col("koi_disposition").cast("Integer"))
-    df1.show()
-    val df2 = df1.withColumn("koi_duration",col("koi_duration").cast("Float"))
-    df2.show()
-    val df3 = df2.withColumn("koi_model_snr",col("koi_model_snr").cast("Float"))
+    //val df1 = df.map("_,_","_._")
+    //val df2 = df1.na.drop("koi_disposition")
+    val df1 = df.withColumn("y",col("koi_disposition").cast("int"))
+
+    val df2 = df1.withColumn("x1",col("koi_duration").cast("float")).withColumn("x2",col("koi_depth").cast("float")).withColumn("x3",col("koi_model_snr").cast("float"))
+
+    val df3 = df2.drop("loc_rowid","koi_disposition","koi_duration","koi_depth","koi_model_snr").na.drop("any")
     df3.show()
-    val df4 = df3.withColumn("koi_depth",col("koi_depth").cast("Float"))
+    /*
+    val df3 = df2.na.drop("any").drop("koi_disposition","koi_depth","koi_duration","koi_model_snr")
+    df3.show()
+
+    val df3 = df2.withColumn("koi_model_snr",col("koi_model_snr").cast("float"))
+    println("DF3")
+    df3.show()
+    val df4 = df3.withColumn("koi_depth",col("koi_depth").cast("float"))
+    println("DF4")
     df4.show()
-
-    val df1 = df.na.drop(Seq("koi_disposition")).show(false)
-    df1.show()
-
     */
-    val inputColumns = Array("koi_duration","koi_depth","koi_model_snr")
-    val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("koi_disposition")
+    val inputColumns = Array("x1","x2","x3")
+    val assembler = new VectorAssembler().setInputCols(inputColumns).setOutputCol("features")
 
-    val featureSet = assembler.transform(df1)
+    val featureSet = assembler.transform(df3)
 
     // split data random in trainingset (70%) and testset (30%)
     val seed = 42
@@ -77,8 +78,7 @@ object Classification {
     //Dividiendo datos en training y test
     val Array(training, test) = data.randomSplit(Array[Double](0.7, 0.3), 18)
     training.show()
-    */
-    /*
+
     val lr = new LinearRegression()
       .setMaxIter(10)
       .setRegParam(0.3)
@@ -96,8 +96,6 @@ object Classification {
     trainingSummary.residuals.show()
     println(s"RMSE: ${trainingSummary.rootMeanSquaredError}")
     println(s"r2: ${trainingSummary.r2}")
-    */
-    /*
 
 
     case class Medidas(petalLength: Float,petalWidth: Float,sepalLength: Float,sepalWidth: Float, feature:String)
@@ -139,6 +137,7 @@ object Classification {
 
     sc.stop()
     */
+
   }
 
 
