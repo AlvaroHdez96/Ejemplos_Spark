@@ -17,14 +17,14 @@ object Classification {
     //Reducir el número de LOG
     Logger.getLogger("org").setLevel(Level.OFF)
     //Creando el contexto del Servidor
-    val sc = new SparkContext("local","Exoplanets", System.getenv("SPARK_HOME"))
+    val sc = new SparkContext("local","Classification", System.getenv("SPARK_HOME"))
     val spark = SparkSession
       .builder()
       .master("local")
       .appName("CargaJSON")
       .config("log4j.rootCategory", "ERROR, console")
       .getOrCreate()
-    var df = spark.read.format("csv")
+    val df = spark.read.format("csv")
       .option("header", "true")
       .option("delimiter", ",")
       .option("inferSchema", "true")
@@ -45,6 +45,7 @@ object Classification {
     val featureSet = assembler.transform(df3)
 
     // split data random in trainingset (70%) and testset (30%)
+
     val seed = 42
     val trainingAndTestSet = featureSet.randomSplit(Array[Double](0.6, 0.4), seed)
     val trainingSet = trainingAndTestSet(0)

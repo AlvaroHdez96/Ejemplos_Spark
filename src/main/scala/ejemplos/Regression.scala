@@ -2,9 +2,14 @@ package ejemplos
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkContext
+import org.apache.spark.ml.Pipeline
+import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.sql.SparkSession
-
+import org.apache.spark.sql.functions.col
+import org.apache.spark.ml.Pipeline
+import org.apache.spark.ml.feature.VectorAssembler
+import org.apache.spark.ml.regression.LinearRegressionModel
 /**
   * Created by AZ on 31.01.2017
   */
@@ -15,7 +20,7 @@ object Regression {
     //Reducir el número de LOG
     Logger.getLogger("org").setLevel(Level.OFF)
     //Creando el contexto del Servidor
-    val sc = new SparkContext("local","Ejemplo06RegresionLineal", System.getenv("SPARK_HOME"))
+    val sc = new SparkContext("local","Regression", System.getenv("SPARK_HOME"))
     val spark = SparkSession
       .builder()
       .master("local")
@@ -29,13 +34,28 @@ object Regression {
       .load("resources/CrabAgePrediction.csv")
 
     df.show()
+    val features = new VectorAssembler()
+      .setInputCols(Array("Length","Diameter","Height","Weight","Shucked Weight","Viscera Weight","Shell Weight"))
+      .setOutputCol("features")
+
     val lr = new LinearRegression()
       .setMaxIter(10)
       .setRegParam(0.3)
       .setElasticNetParam(0.8)
 
+    val pipeline = new Pipeline().setStages(Array(features, lr))
+
+    val df1 = df.withColumn("label",col("Age").cast("int"))
+
     // Fit the model
-    val lrModel = lr.fit(df)
+    val model = pipeline.fit(df1)
+
+    val linRegModel = model.stages(1).asInstanceOf[LinearRegressionModel]
+    println(s"RMSE:  ${linRegModel.summary.rootMeanSquaredError}")
+    println(s"r2:    ${linRegModel.summary.r2}")
+
+    println(s"Model: Y = ${linRegModel.coefficients(0)} * X + ${linRegModel.intercept}")
+    /*
     // Print the coefficients and intercept for linear regression
       println(s"Coefficients: ${lrModel.coefficients} Intercept: ${lrModel.intercept}")
 
@@ -87,6 +107,7 @@ object Regression {
     println(s"Within Set Sum of Squared Errors = $WSSSE")
 
     sc.stop()
+    */
     */
   }
 
