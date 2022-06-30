@@ -13,6 +13,8 @@ import org.apache.spark.ml.regression.LinearRegressionModel
 /**
   * Created by AZ on 31.01.2017
   */
+//Explicaciçón del proceso en resources/Regression.txt
+
 object Regression {
 
 

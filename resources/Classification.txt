@@ -1,0 +1,11 @@
+En primer lugar tras importar los paquetes nevcearios y el dataframe desde la direción correspondiente dentro del proyecto
+creamos una columna nueva a partir de la columna de resultados original y la renombramos a 'label' para que el modelo de
+ clasificación tome esa nueva columna como el valor teórico frente al que constrastar sus prediciiones.
+
+ Por preferencia renombramos ttodas las columnas con entradas a (x1,x2,x3) y eliminamos todas las columnas originales
+ por lo que queda como (label,x1,x2,x3). Una vez hechop estose creó un ensamblador para trabajar con las tres columnas
+ de entradas a la vez como una única.
+
+ Finalmente se dividen los datos en una proporcion 60-40 entre un grupo de entrenamiento y otro de test y se aplica un
+ algoritmo de ML de random forest al set de entrenamiento, imprimiendose luego por pantalla la fracción de aciertos del
+ modelo.

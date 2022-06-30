@@ -10,6 +10,7 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 import com.google.common.collect.ImmutableMap
 
+//Explicaciçón del proceso en resources/Classification.txt
 
 object Classification {
 
