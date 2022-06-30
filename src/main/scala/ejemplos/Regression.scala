@@ -26,15 +26,16 @@ object Regression {
       .option("header", "true")
       .option("delimiter", ",")
       .option("inferSchema", "true")
-      .load("resources/Life_Expectancy_Data.txt")
+      .load("resources/CrabAgePrediction.txt")
 
+    val inputColumns = Array()
     val lr = new LinearRegression()
       .setMaxIter(10)
       .setRegParam(0.3)
       .setElasticNetParam(0.8)
 
     // Fit the model
-    val lrModel = lr.fit(training)
+    val lrModel = lr.fit(df)
     // Print the coefficients and intercept for linear regression
       println(s"Coefficients: ${lrModel.coefficients} Intercept: ${lrModel.intercept}")
 
