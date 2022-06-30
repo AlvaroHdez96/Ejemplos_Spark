@@ -32,7 +32,9 @@ object Classification {
 
     val df1 = df.withColumn("label",col("koi_disposition").cast("int"))
 
-    val df2 = df1.withColumn("x1",col("koi_duration").cast("float")).withColumn("x2",col("koi_depth").cast("float")).withColumn("x3",col("koi_model_snr").cast("float"))
+    val df2 = df1.withColumn("x1",col("koi_duration").cast("float"))
+      .withColumn("x2",col("koi_depth").cast("float"))
+      .withColumn("x3",col("koi_model_snr").cast("float"))
 
     val df3 = df2.drop("loc_rowid","koi_disposition","koi_duration","koi_depth","koi_model_snr").na.drop("any")
     df3.show()

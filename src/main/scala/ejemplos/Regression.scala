@@ -26,9 +26,9 @@ object Regression {
       .option("header", "true")
       .option("delimiter", ",")
       .option("inferSchema", "true")
-      .load("resources/CrabAgePrediction.txt")
+      .load("resources/CrabAgePrediction.csv")
 
-    val inputColumns = Array()
+    df.show()
     val lr = new LinearRegression()
       .setMaxIter(10)
       .setRegParam(0.3)
