@@ -29,7 +29,7 @@ object Ejemplo02JSON {
     // Select only the "name" column
     println("Select: name")
     df.select("name").show()
-    // Select everybody, but increment the age by 1
+    // Select everybody
     println("Select: 'name','age'")
     df.select("name","age").show()
     // Select people older than 21
