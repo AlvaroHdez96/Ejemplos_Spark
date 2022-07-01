@@ -36,6 +36,9 @@ object Regression {
       .load("resources/CrabAgePrediction.csv")
 
     df.show()
+
+    val df1 = df.withColumn("label",col("Age").cast("int"))
+
     val features = new VectorAssembler()
       .setInputCols(Array("Length","Diameter","Height","Weight","Shucked Weight","Viscera Weight","Shell Weight"))
       .setOutputCol("features")
@@ -47,7 +50,7 @@ object Regression {
 
     val pipeline = new Pipeline().setStages(Array(features, lr))
 
-    val df1 = df.withColumn("label",col("Age").cast("int"))
+
 
     // Fit the model
     val model = pipeline.fit(df1)
