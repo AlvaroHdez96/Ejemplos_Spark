@@ -4,7 +4,7 @@
     alrededor de otras estrellas.  Los parámetors del dataset son: un ID (loc_rowid), un resultado (koi_disposition)
     igual a 1 si el descubrimiento se confirma, 0 si es un falso positivo o null si es un candidato por confirmar. Los
     últimos tres parámetros son referentes a cçomo se detectan los planetas: Se observan estrellas lejanas buscando
-    caidas periódicas en su luminosidad, lo que podría indicar la presencua de un planeta orbitando la misma. De esto
+    caidas en su luminosidad, lo que podría indicar la presencua de un planeta orbitando la misma. De esto
     se obtienen 3 parámetros:  el tiempo que dura la caida de luminosidad (koi_duration), la caida de luminosidad
     (koi_depth) y el ruido de la medida (koi_model_snr).
 
