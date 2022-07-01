@@ -4,9 +4,9 @@
 
 *Algoritmo
 
-RegParam = 0
-ElasticNetParam = 1
+    RegParam = 0
+    ElasticNetParam = 1
 
 *Resultado
 
-R2 = 0.52596
+    R2 = 0.52596
