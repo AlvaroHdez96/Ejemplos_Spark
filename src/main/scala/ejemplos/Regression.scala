@@ -57,7 +57,7 @@ object Regression {
     println(s"r2:    ${linRegModel.summary.r2}")
 
     println(s"Model: Y = ${linRegModel.coefficients(0)} * X0 + " +
-      s"${linRegModel.coefficients(1)} * X1 +" +
+      s"${linRegModel.coefficients(1)} * X1 + " +
       s"${linRegModel.coefficients(2)} * X2 + " +
       s"${linRegModel.coefficients(3)} * X3 + " +
       s"${linRegModel.coefficients(4)} * X4 + " +
