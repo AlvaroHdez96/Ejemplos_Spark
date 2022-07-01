@@ -13,13 +13,22 @@
 
 *Algoritmo
 
-    Se ha empleado una pipeline para el modelo de regresión. En primer llugar se ha creado un ensamblador vectorial con
-    las variables de entrada (todas las columnas salvo Age y Sex) y guardado como features para darlo como entrada a la
-    regresión.
+    Se ha empleado una pipeline para el modelo de regresión. En primer lugar se ha renombnrado la columna target Age como
+    'label'. En segundo lugar se ha creado un ensamblador vectorial con las variables de entrada (todas las columnas
+    salvo Age y Sex) y guardado como features para darlo como entrada a la regresión. Luego se ha inicializado una
+    regresión lineal con los parámetros siguientes:
 
+    MaxIter = 10
     RegParam = 0
     ElasticNetParam = 1
+
+    Una vez hecho esto se ha construi9do el pipeline final a partir del modelo de regresión lineal, el pipeline anterior
+    y las features, finalmente llamando a ese pipeline con el dataset a estudiar.
+
 
 *Resultado
 
     R2 = 0.52596
+
+    Y = 2.9811631745442257 -0.883083050413404 * X0 + 5.815800766764415 * X1 + 4.510022202171286 * X2
+    + 0.3266777925268695 * X3 + -0.716569677575914 * X4 + -0.3404235438647486 * X5 + 0.2917358038942907 * X6
