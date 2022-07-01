@@ -1,0 +1,38 @@
+*Dataset
+
+    El dataset contiene varias características físicas para un núm ero de cangrejos: sexo, longitud, diametro del
+    caparazón, altura, peso, peso del caparazón, peso de las vísceras y edad. El sexo es un valor string (M o F) y el
+    resto son o valores float o int.
+
+
+*Preparación de Datos
+
+    No ha sido neecsaria una preparación de los datos, aunque sería posible obtener resultados mejores vectorizando el
+    sexo y haciendo un ajuste para caa una de las dos posibilidades de forma independiente.
+
+
+*Algoritmo
+
+    Se ha empleado una pipeline para el modelo de regresión. En primer lugar se ha renombnrado la columna target Age como
+    'label'. En segundo lugar se ha creado un ensamblador vectorial con las variables de entrada (todas las columnas
+    salvo Age y Sex) y guardado como features para darlo como entrada a la regresión. Luego se ha inicializado una
+    regresión lineal con los parámetros siguientes:
+
+    MaxIter = 10
+    RegParam = 0
+    ElasticNetParam = 1
+
+    Una vez hecho esto se ha construi9do el pipeline final a partir del modelo de regresión lineal, el pipeline anterior
+    y las features, finalmente llamando a ese pipeline con el dataset a estudiar.
+
+
+*Resultado
+
+    R2 = 0.52596
+
+    Y = 2.9811631745442257 -0.883083050413404 * X0 + 5.815800766764415 * X1 + 4.510022202171286 * X2
+    + 0.3266777925268695 * X3 + -0.716569677575914 * X4 + -0.3404235438647486 * X5 + 0.2917358038942907 * X6
+
+    Y = Age
+    X0 = Length, X1 = Diameter, X2 = Height, X3 = Weight,
+    X4 = Shucked Weight, X5 = Viscera Weight, X6 = Shell Weight

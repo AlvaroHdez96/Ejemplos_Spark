@@ -28,7 +28,7 @@ object Ejemplo06RegresionLineal {
       .getOrCreate()
     val training = spark.read.format("libsvm")
       .load("resources/sample_linear_regression_data.txt")
-
+    training.show()
     val lr = new LinearRegression()
       .setMaxIter(10)
       .setRegParam(0.3)

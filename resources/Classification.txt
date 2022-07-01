@@ -1,0 +1,30 @@
+*Dataset
+
+    El dataset consiste en una primera aproximacción a los datos empleados para la detección de exoplanetas orbtando
+    alrededor de otras estrellas.  Los parámetors del dataset son: un ID (loc_rowid), un resultado (koi_disposition)
+    igual a 1 si el descubrimiento se confirma, 0 si es un falso positivo o null si es un candidato por confirmar. Los
+    últimos tres parámetros son referentes a cçomo se detectan los planetas: Se observan estrellas lejanas buscando
+    caidas periódicas en su luminosidad, lo que podría indicar la presencua de un planeta orbitando la misma. De esto
+    se obtienen 3 parámetros:  el tiempo que dura la caida de luminosidad (koi_duration), la caida de luminosidad
+    (koi_depth) y el ruido de la medida (koi_model_snr).
+
+
+*Preparación de Datos
+
+    A partir de los datos anteriores hemos renombrado la columna target ("koi_disposition" -> "label") y cambiando su
+    tipo a un entero y las tres columnas de datos de entrada a (x1,x2,x3). FInalmente se ha empleado un na.drop() para
+    eliminar todos los candidatos por confirmar.
+
+
+*Algoritmo
+
+    Algoritmo de clasificación Random Forest con los siguientes parámetros:
+
+    seed = 42
+    trainingSet = 0.6
+    testSet = 0.4
+
+*Resultado
+
+    Accuracy = 0.77451, bastante bueno para una primera aproximación teniendo en cuenta el número limitado de variables
+    de entrada.
