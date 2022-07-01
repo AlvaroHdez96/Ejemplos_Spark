@@ -63,13 +63,7 @@ object Classification {
     // evaluate the model
     val evaluator = new MulticlassClassificationEvaluator()
 
-    System.out.println("accuracy: " + evaluator.evaluate(predictions))
-
-
-
+    System.out.println("Accuracy: " + evaluator.evaluate(predictions))
 
   }
-
-
-
 }

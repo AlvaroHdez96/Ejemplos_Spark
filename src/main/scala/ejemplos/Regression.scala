@@ -42,8 +42,8 @@ object Regression {
 
     val lr = new LinearRegression()
       .setMaxIter(10)
-      .setRegParam(0.3)
-      .setElasticNetParam(0.8)
+      .setRegParam(0)
+      .setElasticNetParam(1)
 
     val pipeline = new Pipeline().setStages(Array(features, lr))
 
@@ -56,7 +56,7 @@ object Regression {
     println(s"RMSE:  ${linRegModel.summary.rootMeanSquaredError}")
     println(s"r2:    ${linRegModel.summary.r2}")
 
-    println(s"Model: Y = ${linRegModel.coefficients(0)} * X0 +" +
+    println(s"Model: Y = ${linRegModel.coefficients(0)} * X0 + " +
       s"${linRegModel.coefficients(1)} * X1 +" +
       s"${linRegModel.coefficients(2)} * X2 + " +
       s"${linRegModel.coefficients(3)} * X3 + " +
