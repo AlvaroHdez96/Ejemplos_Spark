@@ -64,70 +64,9 @@ object Classification {
     val evaluator = new MulticlassClassificationEvaluator()
 
     System.out.println("accuracy: " + evaluator.evaluate(predictions))
-    /*
-    val dataMapped=data.map( _.toDouble )
-    //Dividiendo datos en training y test
-    val Array(training, test) = data.randomSplit(Array[Double](0.7, 0.3), 18)
-    training.show()
-
-    val lr = new LinearRegression()
-      .setMaxIter(10)
-      .setRegParam(0.3)
-      .setElasticNetParam(0.8)
-
-    // Fit the model
-    val lrModel = lr.fit(training)
-    // Print the coefficients and intercept for linear regression
-      println(s"Coefficients: ${lrModel.coefficients} Intercept: ${lrModel.intercept}")
-
-    // Summarize the model over the training set and print out some metrics
-    val trainingSummary = lrModel.summary
-    println(s"numIterations: ${trainingSummary.totalIterations}")
-    println(s"objectiveHistory: [${trainingSummary.objectiveHistory.mkString(",")}]")
-    trainingSummary.residuals.show()
-    println(s"RMSE: ${trainingSummary.rootMeanSquaredError}")
-    println(s"r2: ${trainingSummary.r2}")
-
-
-    case class Medidas(petalLength: Float,petalWidth: Float,sepalLength: Float,sepalWidth: Float, feature:String)
-
-    var df = spark.read.format("csv").option("delimiter", ",")
-      .load("resources/iris-multiclass.csv").toDF()
-    df.show()
-    df = df.withColumnRenamed("_c0", "sepalLength")
-    df = df.withColumnRenamed("_c1", "sepalWidth")
-    df = df.withColumnRenamed("_c2", "petalLength")
-    df = df.withColumnRenamed("_c3", "petalWidth")
-    df = df.withColumnRenamed("_c4", "features")
-    df.show()
 
 
 
-
-
-    var onlyData = df.drop("features").cache()
-    onlyData.show()
-    var primero=onlyData.first()
-    println(primero)
-    val lr = new LinearRegression()
-      .setMaxIter(10)
-      .setRegParam(0.3)
-      .setElasticNetParam(0.8)
-
-    // Fit the model
-    val lrModel = lr.fit(df)
-      //.dropRight(1).map(_.toDouble))
-       */
-    /*
-    val numClusters = 3
-    val numIterations = 20
-    val clusters = KMeans.train(parsedData, numClusters, numIterations)
-
-    val WSSSE = clusters.computeCost(parsedData)
-    println(s"Within Set Sum of Squared Errors = $WSSSE")
-
-    sc.stop()
-    */
 
   }
 

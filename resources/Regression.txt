@@ -1,0 +1,7 @@
+En primer lugar tras importar los paquetes nevcearios y el dataframe desde la direción correspondiente dentro del proyecto
+creamos un ensamblador vectorial a partir de las columnas que vamos a dar como entradas al modelo. En segundo lugar se
+ inicializa un modelo de regresión lineal y finalmente renombramos la columna con la que queremos comparar la prediciiónes
+ como 'label' para que la vea el modelo como el output.
+
+ Finalmente aplicamos el pipeline al dataframe y asignamos al resultado como una instancia de un modelo de regresión
+ lineal, finalmente imprimiendo los coeficientes por pantalla.
