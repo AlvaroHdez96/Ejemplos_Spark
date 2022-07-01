@@ -33,4 +33,6 @@
     Y = 2.9811631745442257 -0.883083050413404 * X0 + 5.815800766764415 * X1 + 4.510022202171286 * X2
     + 0.3266777925268695 * X3 + -0.716569677575914 * X4 + -0.3404235438647486 * X5 + 0.2917358038942907 * X6
 
-    X0 = Length, X1 = Diameter, X2 = Height, X3 = Weight, X4 = Shucked Weight, X5 = Viscera Weight, X6 = Shell Weight
+    Y = Age
+    X0 = Length, X1 = Diameter, X2 = Height, X3 = Weight,
+    X4 = Shucked Weight, X5 = Viscera Weight, X6 = Shell Weight
